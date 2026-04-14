@@ -1,0 +1,62 @@
+---
+import MainLayout from '@layouts/MainLayout.astro';
+import ProductCard from '@components/ProductCard.astro';
+import DiscountBanner from '@components/DiscountBanner.astro';
+import ComparisonTable from '@components/ComparisonTable.astro';
+import TrustIcons from '@components/TrustIcons.astro';
+import { getCollection } from 'astro:content';
+
+const products = await getCollection('products');
+const sortedProducts = products.sort((a, b) => a.data.order - b.data.order);
+const heroAffiliateLink = "https://iallpowers.eu/?ref=Allpowers-compact-energy&utm_source=aff";
+---
+
+<MainLayout title="ALLPOWERS Deals & Offers | PowerStation Hub" description="Απόκτησε το δικό σου ALLPOWERS Power Station με 16% συνολική έκπτωση (6% μέσω link + 10% κουπόνι AFFCT10). Reliable power anywhere.">
+  
+  <section class="bg-white px-4 py-16 md:py-24 border-b border-gray-100 overflow-hidden relative">
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <div class="mb-4 inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-bold border border-green-200">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+        </span>
+        Ενεργή Προσφορά ALLPOWERS Europe
+      </div>
+      <h1 class="text-5xl md:text-7xl font-extrabold text-allpower-dark tracking-tight mb-6">
+        Απόλυτη Ενέργεια. <br/> <span class="text-allpower-accent text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Παντού.</span> Πάντα.
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-500 mb-10 max-w-3xl mx-auto font-light">
+        Ανακάλυψε κορυφαία Power Stations για Camping, Home Backup και Έκτακτες Ανάγκες. Εξασφάλισε τη χαμηλότερη τιμή της αγοράς μέσω της συνεργασίας μας.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href={heroAffiliateLink} target="_blank" rel="noopener nofollow" class="w-full sm:w-auto px-8 py-4 bg-allpower-dark text-white rounded-xl text-lg font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl">
+          Δες Όλες τις Προσφορές
+        </a>
+        <div class="text-sm text-gray-500 mt-2 sm:mt-0 bg-gray-50 px-6 py-4 rounded-xl border border-gray-200">
+          Χρησιμοποίησε τον κωδικό <strong class="text-allpower-dark font-black text-lg bg-yellow-200 px-2 rounded">AFFCT10</strong> στο καλάθι.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <TrustIcons />
+
+  <section class="max-w-6xl mx-auto px-4 my-16 bg-gray-50" id="products">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-extrabold text-allpower-dark">Κορυφαία Power Stations</h2>
+      <div class="w-24 h-1 bg-allpower-accent mx-auto mt-4 rounded"></div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sortedProducts.map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+  </section>
+
+  <DiscountBanner />
+
+  <ComparisonTable />
+
+</MainLayout>

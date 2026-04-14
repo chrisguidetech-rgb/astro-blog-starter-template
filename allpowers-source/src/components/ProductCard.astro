@@ -1,0 +1,34 @@
+---
+const { product } = Astro.props;
+const { data } = product;
+---
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden relative group">
+  {data.featured && (
+    <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">BEST SELLER</div>
+  )}
+  <div class="p-6 pb-0 text-center overflow-hidden h-64 bg-allpower-light flex items-center justify-center rounded-t-2xl">
+    <img src={data.image} alt={data.name} class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+  </div>
+  <div class="p-6 flex flex-col flex-grow">
+    <h3 class="text-xl font-bold text-allpower-dark mb-2">{data.name}</h3>
+    <p class="text-sm text-gray-500 mb-4 flex-grow">{data.shortDescription}</p>
+    
+    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-6 bg-gray-50 p-3 rounded-lg border border-gray-100">
+      <div><strong>Ισχύς:</strong> {data.outputWatts}</div>
+      <div><strong>Μπαταρία:</strong> {data.batteryCapacity}</div>
+      <div><strong>Βάρος:</strong> {data.weight}</div>
+    </div>
+    
+    <div class="mb-4 text-center">
+      <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Τελική Τιμή με Κουπόνι "AFFCT10"</span>
+      <div class="flex items-baseline justify-center gap-2">
+        <span class="text-2xl font-extrabold text-allpower-dark">~ {data.price}€</span>
+        {data.originalPrice && <span class="text-sm text-gray-400 line-through">{data.originalPrice}€</span>}
+      </div>
+    </div>
+
+    <a href={data.affiliateUrl} target="_blank" rel="noopener nofollow" class="block w-full py-3 px-4 bg-allpower-dark text-white text-center font-bold rounded-lg hover:bg-black transition-colors shadow-md">
+      Shop Now & Apply Discount
+    </a>
+  </div>
+</div>

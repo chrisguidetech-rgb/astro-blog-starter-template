@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+const products = await getCollection('products');
+const sortedProducts = products.sort((a, b) => a.data.order - b.data.order);
+---
+<section class="max-w-5xl mx-auto px-4 my-16 overflow-x-auto pb-4">
+  <div class="text-center mb-10">
+    <h2 class="text-3xl font-bold text-allpower-dark">Σύγκριση Power Stations</h2>
+    <p class="text-gray-500 mt-2">Βρες το μοντέλο που ταιριάζει στις ανάγκες σου</p>
+  </div>
+  <table class="w-full min-w-[800px] text-left border-collapse border border-gray-200 bg-white rounded-lg shadow-sm">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="p-4 border-b border-gray-200 font-bold text-gray-800">Μοντέλο</th>
+        <th class="p-4 border-b border-gray-200 font-bold text-gray-800">Μπαταρία</th>
+        <th class="p-4 border-b border-gray-200 font-bold text-gray-800">Έξοδος (Watts)</th>
+        <th class="p-4 border-b border-gray-200 font-bold text-gray-800">Βάρος</th>
+        <th class="p-4 border-b border-gray-200 font-bold text-gray-800 text-center">Δράση</th>
+      </tr>
+    </thead>
+    <tbody>
+      {sortedProducts.map((p) => (
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="p-4 border-b border-gray-100 font-semibold text-allpower-dark flex items-center gap-3">
+             <img src={p.data.image} class="w-10 h-10 object-contain bg-white rounded" alt={p.data.name} />
+             {p.data.name}
+          </td>
+          <td class="p-4 border-b border-gray-100 text-gray-600">{p.data.batteryCapacity}</td>
+          <td class="p-4 border-b border-gray-100 text-gray-600 font-medium">{p.data.outputWatts}</td>
+          <td class="p-4 border-b border-gray-100 text-gray-600">{p.data.weight}</td>
+          <td class="p-4 border-b border-gray-100 text-center">
+            <a href={p.data.affiliateUrl} target="_blank" rel="noopener nofollow" class="text-xs font-bold text-white bg-allpower-accent px-4 py-2 rounded shadow hover:bg-allpower-hover transition-colors">
+              Buy Now
+            </a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</section
